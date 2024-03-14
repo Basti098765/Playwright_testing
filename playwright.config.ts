@@ -36,7 +36,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      grepInvert: [/@instable/, /@demo/],
+      grepInvert: [/@instable/, /*/@demo/*/],
     },
 
     {
