@@ -10,11 +10,11 @@ test.beforeEach(async ({ page }) => {
 test(
     "Playwright installation guide",
     {
-      tag: [ "@visual"],
+      tag: [ "@visual", '@instable'],
       annotation: {
-        type: "visual test",
+        type: "issue",
         description:
-          "Take a Screenshot of the Installation guide of playwright",
+          "Different Fonts in between local and git cause Issues",
       },
     },
     async ({ page }, testInfo) => {
