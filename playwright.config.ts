@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -10,7 +10,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -20,29 +20,71 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
   },
-  snapshotDir:'snapshots',
+  snapshotDir: "snapshots",
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      grepInvert: [/@instable/, /@demo/],
     },
 
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "chromium-highContrast",
+      use: {
+        ...devices["Desktop Chrome"],
+        colorScheme: "dark",
+        contextOptions: { forcedColors: "active" },
+      },
+      grep: [/@visual/],
+      grepInvert: [/@instable/, /@demo/],
     },
 
+    {
+      name: "firefox",
+      use: { ...devices["Desktop Firefox"] },
+      grepInvert: [/@instable/, /@demo/],
+    },
+
+    {
+      name: "firefox-highContrast",
+      use: {
+        browserName: "firefox",
+        colorScheme: "dark",
+        contextOptions: { forcedColors: "active" },
+        launchOptions: {
+          firefoxUserPrefs: {
+            "ui.caretBlinkTime": 0,
+            "layout.spellcheckDefault": 0,
+            "browser.display.document_color_use": 2,
+            "browser.display.use_system_colors": false,
+            "ui.use_standins_for_native_colors": false,
+            "ui.highlight": "#00FFFF",
+            "ui.highlighttext": "#000000",
+            "ui.graytext": "#00FF00",
+            "ui.buttonface": "#000000",
+            "ui.buttontext": "#FFFFFF",
+            "browser.anchor_color": "#FFFF00",
+            "browser.display.background_color": "#000000",
+            "browser.display.foreground_color": "#FFFFFF",
+            "browser.visited_color": "#FFFF00",
+            "browser.active_color": "#FFFF00",
+          },
+        },
+      },
+      grep: [/@visual/],
+      grepInvert: [/@instable/, /@demo/],
+    },
     // {
     //   name: 'webkit',
     //   use: { ...devices['Desktop Safari'] },
