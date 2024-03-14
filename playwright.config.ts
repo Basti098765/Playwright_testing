@@ -36,7 +36,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      grepInvert: [/@instable/, /*/@demo/*/],
+      grepInvert: process.env.CI ? [/@instable/, /*/@demo/*/] : [],
     },
 
     {
@@ -47,13 +47,13 @@ export default defineConfig({
         contextOptions: { forcedColors: "active" },
       },
       grep: [/@visual/],
-      grepInvert: [/@instable/, /@demo/],
+      grepInvert: process.env.CI ? [/@instable/, /@demo/]: [],
     },
 
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
-      grepInvert: [/@instable/, /@demo/],
+      grepInvert: process.env.CI ? [/@instable/, /@demo/]: [],
     },
 
     {
@@ -83,7 +83,7 @@ export default defineConfig({
         },
       },
       grep: [/@visual/],
-      grepInvert: [/@instable/, /@demo/],
+      grepInvert: process.env.CI ? [/@instable/, /@demo/]: [],
     },
     // {
     //   name: 'webkit',
