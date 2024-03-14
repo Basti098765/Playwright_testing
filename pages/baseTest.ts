@@ -23,6 +23,7 @@ export class BasePage {
 
   async checkScreenshotWithoutHover(title: string, target?: Locator) {
     const locTarget = target ? target : this.scTargetDefault;
+    await locTarget?.scrollIntoViewIfNeeded();
     await this.page.mouse.move(1, 1);
     await expect(locTarget ? locTarget : this.page).toHaveScreenshot(`${title}.png`);
   }
