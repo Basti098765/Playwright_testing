@@ -26,7 +26,7 @@ test("get started link", { tag: "@demo" }, async ({ page }) => {
   ).toBeVisible();
 });
 
-test("playwright banner", { tag: "@visual" }, async ({ page }, testInfo) => {
+test("playwright banner", { tag: ["@visual", "@instable"] }, async ({ page }, testInfo) => {
   await page.goto("https://playwright.dev/");
 
   // Expects page to have a heading with the name of Installation.
