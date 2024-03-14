@@ -26,10 +26,20 @@ test("get started link", { tag: "@demo" }, async ({ page }) => {
   ).toBeVisible();
 });
 
+test("playwright banner", { tag: "@visual" }, async ({ page }, testInfo) => {
+  await page.goto("https://playwright.dev/");
+
+  // Expects page to have a heading with the name of Installation.
+  await basePage.checkScreenshot(
+    testInfo.title,
+    page.getByRole('banner')
+  );
+});
+
 test(
   "go to example page",
   {
-    tag: [ "@visual",],
+    tag: [ "@visual","@instable"],
     annotation: {
       type: "issue",
       description:
